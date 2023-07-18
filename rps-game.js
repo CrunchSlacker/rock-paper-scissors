@@ -18,47 +18,100 @@ const getPlayerSelection = () => {
 }
 
 const playRound = (playerSelection, computerSelection) => {
+    const body = document.querySelector('body');
+    const roundResultDiv = document.createElement('div');
+    const resultText = document.createElement('h3');
+    const computerResultText = document.createElement('h3');
+
     if (playerSelection == computerSelection) {
-        console.log("Tie!");
+        resultText.textContent = "Tie!"
+        computerResultText.textContent = "Computer: " + computerSelection;
+        roundResultDiv.appendChild(computerResultText);
+        roundResultDiv.appendChild(resultText);
+        body.appendChild(roundResultDiv);
     } else if (playerSelection == "rock" && computerSelection == "scissors") {
-        console.log("You Win!");
-        return 1;
+        resultText.textContent = "You Win!"
+        computerResultText.textContent = "Computer: " + computerSelection;
+        roundResultDiv.appendChild(computerResultText);
+        roundResultDiv.appendChild(resultText);
+        body.appendChild(roundResultDiv);
     } else if (playerSelection == "paper" && computerSelection == "rock") {
-        console.log("You Win!");
-        return 1;
+        resultText.textContent = "You Win!"
+        computerResultText.textContent = "Computer: " + computerSelection;
+        roundResultDiv.appendChild(computerResultText);
+        roundResultDiv.appendChild(resultText);
+        body.appendChild(roundResultDiv);
     } else if (playerSelection == "scissors" && computerSelection == "paper") {
-        console.log("You Win!")
-        return 1;
+        resultText.textContent = "You Win!"
+        computerResultText.textContent = "Computer: " + computerSelection;
+        roundResultDiv.appendChild(computerResultText);
+        roundResultDiv.appendChild(resultText);
+        body.appendChild(roundResultDiv);
     } else {
-        console.log("Computer Wins!");
-        return 2;
+        resultText.textContent = "Computer Wins!"
+        computerResultText.textContent = "Computer: " + computerSelection;
+        roundResultDiv.appendChild(computerResultText);
+        roundResultDiv.appendChild(resultText);
+        body.appendChild(roundResultDiv);
     }
 }
 
 function game() {
-    let playerScore = 0, computerScore = 0, playerSelection, computerSelection;
+    const body = document.querySelector('body');
+    const rockButton = document.createElement('button');
+    const paperButton = document.createElement('button');
+    const scissorsButton = document.createElement('button');
+
+    const divLog = document.createElement('div');
+    divLog.setAttribute('id', 'gameLog');
+
+    rockButton.textContent = "Rock";
+    rockButton.setAttribute('id', 'rock');
+    paperButton.textContent = "Paper";
+    paperButton.setAttribute('id', 'paper');
+    scissorsButton.textContent = "Scissors";
+    scissorsButton.setAttribute('id', 'scissors');
+
     
-    for (let rounds = 0; rounds < 5; rounds++ ){
-        if (playerScore == 3) {
-            console.log("Player Wins");
-            break;
-        } else if (computerScore == 3) {
-            console.log("Computer Wins");
-            break;
-        }
 
-        computerSelection = getComputerChoice();
-        playerSelection = getPlayerSelection();
+    window.onload = function() {
+        const rockBtn = document.querySelector('#rock');
+        const paperBtn = document.querySelector('#paper');
+        const scissorsBtn = document.querySelector('#scissors');
+        const playerSelection = document.createElement('h3');
+        const promptAnswer = document.createElement('h1');
+        promptAnswer.textContent = "Rock, Paper or Scissors?";
 
-        const roundResult = playRound(playerSelection, computerSelection);
-        if (roundResult == 1) {
-            playerScore ++;
-        } else if (roundResult == 2) {
-            computerScore ++;
-        }
-        console.log("Player Choice: " + playerSelection + "\nComputer Choice: " + computerSelection);
-        console.log("Player Score: " + playerScore + "\nComputer Score: " + computerScore);
+        divLog.appendChild(promptAnswer);
+
+        rockBtn.addEventListener('click', () => {
+            playerSelection.textContent = "Player: Rock!";
+            divLog.appendChild(playerSelection);
+            playRound('rock', getComputerChoice());
+        });
+    
+        paperBtn.addEventListener('click', () => {
+            playerSelection.textContent = "Player: Paper!";
+            divLog.appendChild(playerSelection);
+            playRound('paper', getComputerChoice());
+        });
+    
+        scissorsBtn.addEventListener('click', () => {
+            playerSelection.textContent = "Player: Scissors!";
+            divLog.appendChild(playerSelection);
+            playRound('scissors', getComputerChoice());
+        });
     }
+    
+
+    body.appendChild(rockButton);
+    body.appendChild(paperButton);
+    body.appendChild(scissorsButton);
+    body.appendChild(divLog);
+
+
+
+    
 }
 
 game();
